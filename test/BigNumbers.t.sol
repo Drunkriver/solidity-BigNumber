@@ -273,4 +273,76 @@ contract BigNumbersTest is Test {
 
         assertEq(res.eq(expectedRes), true);
     }
+// function test1() public{
+    //     uint256 constant GX = 0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798;
+    //     uint256 constant GY = 0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8;
+    //     uint256 constant AA = 0;
+    //     uint256 constant BB = 7;
+    //     uint256 constant PP = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F;
+
+    //     uint256 public privKey = 0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798;
+    //     (qx,qy) = EllipticCurve.ecMul(
+    //         privKey,
+    //         GX,
+    //         GY,
+    //         AA,
+    //         PP
+    //     );
+        
+    // }
+    function test2() public{
+        bytes memory _g = hex"fe4ec707e6da7ddf6f9c6d878783a38e6eddce6b2c6200b1790813093f2db0fb6dd44786a4aa684dd617b4d0b733540d538f59453488da187ffcac2c39681d7bff535d06c73818cb4b1f82079ac4f714bfab5b661c0cfd5f064b083d53b6780b5aef4745cf9647cddcfbafe4bce26acc50c6660f2429e1ded7cabf58316854a9";
+        bytes memory _l = hex"fe4ec707e6da7ddf6f9c6d878783a38e6eddce6b2c6200b1790813093f2db0fb6dd44786a4aa684dd617b4d0b733540d538f59453488da187ffcac2c39681d7bff535d06c73818cb4b1f82079ac4f714bfab5b661c0cfd5f064b083d53b6780b5aef4745cf9647cddcfbafe4bce26acc50c6660f2429e1ded7cabf58316854a9";
+        bytes memory _N = hex"794456c7db9c0ade641271ecf2551b46d4e502a9e3801b9f2727875a719d8ad9756fb5f3e255038d3b31e1d6f37a7721d2095e3831c2900f8c23563f135bdc8ec99f037fcfaca6c16813a694b8db136e93175e46e1e448b133b9716716ca5e12b328eb969b52f3b2fc6dacf0f40759b37e8eadc51c8c9fb462d01f988e84333a936e0810c3307ebdbed1a07650274880b7ee67db4cdef23f4bab42df3cbc9b6caae43ad29ec1b06dc9fba1ebdebbb0411b0c7736695af7f7528feed2744c8982c20f7c89ad6b5b35d1f307a4fb48d59faf5beb4a44d7d2453a1ab8d1d5608fdc684eb3f48c0cc03093e9fb1ee0dff8512747e5dbe6332b9c23538d2fb06d57dd";
+        BigNumber memory N = _N.init(false);
+        BigNumber memory l = _l.init(false);
+        BigNumber memory g = _g.init(false);
+        BigNumber memory res1 = g.modexp(l,N);
+    }
+
+    //forge test --mc BigNumbersTest
+    function testProve() public{
+        bytes memory _u = hex"25fe1cada1ee3f603cb8438fae14228af113136794a055f3a06f7d1ec8ccb979188599f096f03d7317d3739c7c40cfbee5dea4c1c898c21f6a0885fcdbabefc018febfdbd2d930763481c02d61c9c2959ebc2420c53de5b574aea3c0020eda8dbe25cc1fb7b8d3d6c2e616f4a65e6cbed77681c3e777008e53e4d92fa064ed6f474aec7b4b16e460191fd5d00c33ee52891944734d1c2c7f2638bce8ab2c5135b00eead69e9fb356f2c0c32500fe644649f17c2a3c26a6eba2cabca39a710fcaa6aac37c8171fa8eada371392b6abbf0aeaf9a59b1a7ce58e41b7dd181577c10e75353e52ac8c274352e0fdde1c1e5635c3ef8f9d21d7d6e9f5deedf6e83a751";
+        bytes memory _w = hex"704a699e8c70b41d40e1ff2a1b820dc46618eaf8a611c1108fd9ccd0a860b404bde7054c5c7186ae0a2aee02757d2d816703120070ad06f4f1a868be1c375de3161e6fd70e1289cd32a871d13e8f16ae611c928686831e6379966e85c58976a515208aa6c1c3a53f8d49c7ca2a8a10490d04f95a9a593d29190c439f79c5333c8f930d9537d91cf0bd2823a03cea051bc3212d17d1815ce24d86a02a9a24a327ed17f66673a35b5de9f8302565368a0c61257fb0d7dc89c3ab05c7e7d8c8174dc131666980fc9d2927e84da2c828880a4bfac7d718d588e981cc715815c09adedbb9522f3a341c56beca9e96ca82d5b335fdfabbca9ac318596bf707f7550ac2";
+        bytes memory _z = hex"3dba02a9961598520ae1d32cc5b661f2713d8cb997c27fc37dd40f1b41951d38505865409419784349f42830a67b40cc801f97f85f7b0446a9111a2dfc02b66eefed4c5e39ca1318da218bdf2860fc18fb48ac6d0709993e06c94b616d66b361cfafb8052b43b5e1916f21c618a275ea82f3bc7c25b61c9092b2877dcf63184fdae8aaf6dac4857d99d8db8cba28ccfed6bfd2c38599dac85ce71f8d0897b1f50a836341bad65a97b51d5717b42e623d916b83151ac7a231136b172005e5f02e054631ed7d5ee8407249aae0db44650baea8fa411c3e19a0da6523c39af67cdc7e04b481f3b67738a430a795bf98ad2e443eacd40fce5e7ac4a3322364a0c11e";
+        bytes memory _Q = hex"498757e9cfca0d8866fc83398cc8ac92eb3a8a4fcfc70900963496bd31dbe1cb7e10eb5d531959e16c6fc29474e14ce2adc9cb9f566e8cbaa3523b250f95bd87057e1aebf171dfd19249165936eff8a2ab08220a232e5d93536a92f77bf67173119b6da2289ad6be58f0daa0d6c0013d6c0bd251d5039b433f7a8a9c9db3baa1be3fe4fa0877ee80a928ad42c13c5d291fbb867ce7565e7ae0bd44a1845fa3fbdac39cb432d491450b2bff88b1ac99c278c497c47155135299b9a3f5bcf5374b2f4fb76d5375ee5dc2281ec5c703549aacd4f04077393f734b7788e4b146619741fc4bf6b36ff8baf1806f174519b2d0814b488c65880ed6769a99b8d61c36ba";
+        bytes memory _r = hex"3446196299134e47b7ffdabc2d2fb6cc44683a623cc6864f4f7507a69bec48e2";
+        //bytes memory _r1r2 = hex"1";
+        // bytes memory _r1 = hex"90fe06bed4c730f854e3c683651482a96a11257143d9cd9204087cf558c5db17";
+        // bytes memory _r2 = hex"907236954d58805f6222ae36ce29ba4167573c5b01ee2c3d7d740eea0d5afaf7";
+        bytes memory _l = hex"85070e56fa39efc0ed2e781bad4df52e801cb5813d8cfa9f4113f00647038501";
+        bytes memory _a = hex"5fc8fa9aa3e77b03339269c1315bc512db415047b69edc9b0c60f3b1b7430183";
+        bytes memory _g = hex"fe4ec707e6da7ddf6f9c6d878783a38e6eddce6b2c6200b1790813093f2db0fb6dd44786a4aa684dd617b4d0b733540d538f59453488da187ffcac2c39681d7bff535d06c73818cb4b1f82079ac4f714bfab5b661c0cfd5f064b083d53b6780b5aef4745cf9647cddcfbafe4bce26acc50c6660f2429e1ded7cabf58316854a9";
+        bytes memory _N = hex"794456c7db9c0ade641271ecf2551b46d4e502a9e3801b9f2727875a719d8ad9756fb5f3e255038d3b31e1d6f37a7721d2095e3831c2900f8c23563f135bdc8ec99f037fcfaca6c16813a694b8db136e93175e46e1e448b133b9716716ca5e12b328eb969b52f3b2fc6dacf0f40759b37e8eadc51c8c9fb462d01f988e84333a936e0810c3307ebdbed1a07650274880b7ee67db4cdef23f4bab42df3cbc9b6caae43ad29ec1b06dc9fba1ebdebbb0411b0c7736695af7f7528feed2744c8982c20f7c89ad6b5b35d1f307a4fb48d59faf5beb4a44d7d2453a1ab8d1d5608fdc684eb3f48c0cc03093e9fb1ee0dff8512747e5dbe6332b9c23538d2fb06d57dd";
+        BigNumber memory u = _u.init(false);
+        BigNumber memory w = _w.init(false);
+        BigNumber memory z = _z.init(false);
+        BigNumber memory Q = _Q.init(false);
+        BigNumber memory r = _r.init(false);
+        //BigNumber memory r1r2 = _r1r2.init(false);
+        // BigNumber memory r1 = _r1.init(false);
+        // BigNumber memory r2 = _r2.init(false);
+        BigNumber memory l = _l.init(false);
+        BigNumber memory a = _a.init(false);
+        BigNumber memory g = _g.init(false);
+        BigNumber memory N = _N.init(false);
+
+        // BigNumber memory left = Q.modexp(l,N).mul(u.mul(g.modexp(a,N)).modexp(r,N)).mod(N);
+        
+        BigNumber memory res1 = Q.modexp(l,N);
+        BigNumber memory res2 = u.mul(g.modexp(a,N)).mod(N);
+        BigNumber memory res3 = res1.mul(res2.modexp(r,N)).mod(N);
+
+        BigNumber memory res4 = w;
+        BigNumber memory res5 = z.modexp(a,N);
+        BigNumber memory res6 = res4.mul(res5).mod(N);
+        
+        
+
+        bytes memory _expectedRes = hex"50c0a157b354ce2677b73510a50141e36a41ab6ca2a008ed53cc88cd79dd4b5189712d9b9588c5e3a5920e8455ef253a7baece35974441d047007e17284333fe49f749ae3d463f4d6ad222c2d8eaa26514cbc213ba0414289303ab8620f340cfef748e3d789e8f56c333a38fa8454a28ee8df99d2a448639c807a35db9a48eccb5dac57487352f3beb1e7931ac4a42aad9ec4e4750055ef3ee28f00c2524d763893a1a3b1f4d5d3345a38e21962f3297f7ca26c8f4cbebe3b514a0c6ef404ab4af4e7dd5f31c940977f6d7187813ce23d1473f1104b32f441794a92210cae9a3dc912457e8e317da330b88491bdd6c7ae9c48bad232474393279d9249dec414d";
+        BigNumber memory expectedRes = _expectedRes.init(false);
+
+        assertEq(res6.eq(res3), true);
+
+    }
 }
